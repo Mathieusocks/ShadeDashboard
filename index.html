@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+
+
+<div class="container-fluid">
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Tableau Username/Email</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+
+            </thead>
+            <tbody id="table_body">
+
+            </tbody>
+
+            <tbody id="table_body2">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Tableau categorie</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+
+            </thead>
+
+            <tbody id="table_body2">
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!--<script src="script.js"></script>-->
+
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyA3UdBrIvHxcTEaGGEFI6obqi17JjT6S9Q",
+        authDomain: "local-dev-amb.firebaseapp.com",
+        databaseURL: "https://local-dev-amb.firebaseio.com",
+        projectId: "local-dev-amb",
+        storageBucket: "local-dev-amb.appspot.com",
+        messagingSenderId: "464414262517"
+    };
+    firebase.initializeApp(config);
+
+</script>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+
+
+    /* var rootRef = firebase.database().ref().child("users");
+
+     rootRef.on("child_added", snap => {
+
+     var email = snap.child("mail").val();
+     var name = snap.child("username").val();
+
+     $('#table_body').append("<tr><td>" + name + "</td><td>" + email + "</td></tr>");
+
+     });
+
+
+     var tab =[name];
+     console.log(tab[1]);*/
+
+
+    firebase.database().ref('/users/').on('value', function (snapshot) {
+        let data = snapshot.val();
+        console.log('table user', data);
+        console.log('nombre de user = ', data.length);
+
+        let plop = [];
+
+        for (key in data) {
+            /*console.log('username = ',key);*/
+            plop.push(key);
+        }
+
+        console.log('nombre de user = ', plop.length);
+
+        //afficher user n4
+        console.log('user n0 4', data[plop[5]]);
+
+        var usr = data[plop[5]].username;
+        var photo = data[plop[5]].isPhoto;
+        var inscri = data[plop[5]].created;
+        var cat = data[plop[5]].categoryActive;
+
+        var foo = null;
+
+        for (key in cat) {
+           foo = (cat[key]);
+        }
+
+        console.log(foo);
+
+        /* console.log('catégorie associée',cat);*/
+
+        $('#table_body').append("<tr><td>" + "Nom de l'utilisateur : " + usr + "</td><td><tr><td>" + "Prise de photo : " + photo + "</td><td><tr><td>" + " Date de création du compte: " + inscri + "</td><td><tr><td>" + "Photo parties du corps: " + foo + "<tr><td>");
+
+
+        // afficher tout les user
+        for (let i = 0; i < plop.length; i++) {
+            /*console.log('usr list : ',data[plop[i]])*/
+        }
+
+
+        //afficher si le user 3 a posté une photo
+        /*console.log('magimagie',data[plop[2]].isPhoto);*/
+
+
+    });
+
+    firebase.database().ref('/users/categoryActive').on('value', function (snapshot) {
+
+        let dataa = snapshot.val();
+        console.log('categoryActive:', dataa);
+
+    });
+
+
+
+</script>
+
+</body>
+
+</html>
