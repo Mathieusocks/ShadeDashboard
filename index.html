@@ -15,6 +15,11 @@
 
 <div class="container-fluid">
 
+    <h1 id="nbruser"> Nombre d'utilisateurs : </h1>
+    <h1 id="nbrphoto"> Nombre de photos postées : </h1>
+    <h1 id="nbrlike"> Nombre de like : </h1>
+
+
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">Tableau Username/Email</div>
@@ -36,7 +41,6 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Tableau categorie</div>
 
         <!-- Table -->
         <table class="table">
@@ -54,8 +58,7 @@
 
 
 <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!--<script src="script.js"></script>-->
+
 
 <script>
     // Initialize Firebase
@@ -71,6 +74,8 @@
 
 </script>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="./script.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -86,82 +91,6 @@
         crossorigin="anonymous"></script>
 
 
-<script type="text/javascript">
-
-
-    /* var rootRef = firebase.database().ref().child("users");
-
-     rootRef.on("child_added", snap => {
-
-     var email = snap.child("mail").val();
-     var name = snap.child("username").val();
-
-     $('#table_body').append("<tr><td>" + name + "</td><td>" + email + "</td></tr>");
-
-     });
-
-
-     var tab =[name];
-     console.log(tab[1]);*/
-
-
-    firebase.database().ref('/users/').on('value', function (snapshot) {
-        let data = snapshot.val();
-        console.log('table user', data);
-        console.log('nombre de user = ', data.length);
-
-        let plop = [];
-
-        for (key in data) {
-            /*console.log('username = ',key);*/
-            plop.push(key);
-        }
-
-        console.log('nombre de user = ', plop.length);
-
-        //afficher user n4
-        console.log('user n0 4', data[plop[5]]);
-
-        var usr = data[plop[5]].username;
-        var photo = data[plop[5]].isPhoto;
-        var inscri = data[plop[5]].created;
-        var cat = data[plop[5]].categoryActive;
-
-        var foo = null;
-
-        for (key in cat) {
-           foo = (cat[key]);
-        }
-
-        console.log(foo);
-
-        /* console.log('catégorie associée',cat);*/
-
-        $('#table_body').append("<tr><td>" + "Nom de l'utilisateur : " + usr + "</td><td><tr><td>" + "Prise de photo : " + photo + "</td><td><tr><td>" + " Date de création du compte: " + inscri + "</td><td><tr><td>" + "Photo parties du corps: " + foo + "<tr><td>");
-
-
-        // afficher tout les user
-        for (let i = 0; i < plop.length; i++) {
-            /*console.log('usr list : ',data[plop[i]])*/
-        }
-
-
-        //afficher si le user 3 a posté une photo
-        /*console.log('magimagie',data[plop[2]].isPhoto);*/
-
-
-    });
-
-    firebase.database().ref('/users/categoryActive').on('value', function (snapshot) {
-
-        let dataa = snapshot.val();
-        console.log('categoryActive:', dataa);
-
-    });
-
-
-
-</script>
 
 </body>
 
